@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kseny\\source\\repos\\Practice\\CosmeticShop\\CosmeticShop.csproj": {}
+    "D:\\Users\\vasilisa\\PRAKTIKA\\Practice\\CosmeticShop\\CosmeticShop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kseny\\source\\repos\\Practice\\CosmeticShop\\CosmeticShop.csproj": {
+    "D:\\Users\\vasilisa\\PRAKTIKA\\Practice\\CosmeticShop\\CosmeticShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kseny\\source\\repos\\Practice\\CosmeticShop\\CosmeticShop.csproj",
+        "projectUniqueName": "D:\\Users\\vasilisa\\PRAKTIKA\\Practice\\CosmeticShop\\CosmeticShop.csproj",
         "projectName": "CosmeticShop",
-        "projectPath": "C:\\Users\\kseny\\source\\repos\\Practice\\CosmeticShop\\CosmeticShop.csproj",
-        "packagesPath": "C:\\Users\\kseny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kseny\\source\\repos\\Practice\\CosmeticShop\\obj\\",
+        "projectPath": "D:\\Users\\vasilisa\\PRAKTIKA\\Practice\\CosmeticShop\\CosmeticShop.csproj",
+        "packagesPath": "C:\\Users\\vasil\\.nuget\\packages\\",
+        "outputPath": "D:\\Users\\vasilisa\\PRAKTIKA\\Practice\\CosmeticShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kseny\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vasil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -82,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

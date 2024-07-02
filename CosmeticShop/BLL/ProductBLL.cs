@@ -10,13 +10,13 @@ namespace CosmeticShop.BLL
     {
 
         private IProductRepository productRepository;
-        private IFirmRepository firmRepository;
+        private ISexCategoryRepository sexCategoryRepository;
         private ICategoryRepository categoryRepository;
 
-        public ProductBLL(IProductRepository _productRepository, IFirmRepository _firmRepository, ICategoryRepository _categoryRepository)
+        public ProductBLL(IProductRepository _productRepository, ISexCategoryRepository _sexCategoryRepository, ICategoryRepository _categoryRepository)
         {
             productRepository = _productRepository;
-            firmRepository = _firmRepository;
+            sexCategoryRepository = _sexCategoryRepository;
             categoryRepository = _categoryRepository;
         }
         public IEnumerable<Product> GetProducts()
@@ -34,7 +34,7 @@ namespace CosmeticShop.BLL
         }
         public Product Add(ProductDto productDto)
         {
-            var firm = firmRepository.GetFirmById(productDto.FirmId);
+            var sexCategory = sexCategoryRepository.GetSexCategoryById(productDto.SexCategoryId);
             var category = categoryRepository.GetCategoryById(productDto.CategoryId);
             var product = new Product
             {
@@ -42,16 +42,16 @@ namespace CosmeticShop.BLL
                 Name = productDto.Name,
                 Description = productDto.Description,
                 Price = productDto.Price,
-                FirmId = productDto.FirmId,
-                Firm = firm,
+                SexCategoryId = productDto.SexCategoryId,
+                SexCategory = sexCategory,
                 Category = category,
                 CategoryId = productDto.CategoryId,
-                Color = productDto.Color,
-                Count = productDto.Count,
-                Smell = productDto.Smell,
-                ImageLink = productDto.ImageLink,
-                UseMethod = productDto.UseMethod,
-                Weight = productDto.Weight,
+                //Color = productDto.Color,
+                //Count = productDto.Count,
+                //Smell = productDto.Smell,
+                //ImageLink = productDto.ImageLink,
+                //UseMethod = productDto.UseMethod,
+                //Weight = productDto.Weight,
             };
             productRepository.Add(product);
             productRepository.Save();
@@ -59,7 +59,7 @@ namespace CosmeticShop.BLL
         }
         public bool Update(int id, ProductDto productDto, out string errorMessage)
         {
-            var firm = firmRepository.GetFirmById(productDto.FirmId);
+            var sexCategory = sexCategoryRepository.GetSexCategoryById(productDto.SexCategoryId);
             var category = categoryRepository.GetCategoryById(productDto.CategoryId);
             var product = new Product
             {
@@ -67,16 +67,16 @@ namespace CosmeticShop.BLL
                 Name = productDto.Name,
                 Description = productDto.Description,
                 Price = productDto.Price,
-                FirmId = productDto.FirmId,
-                Firm = firm,
+                SexCategoryId = productDto.SexCategoryId,
+                SexCategory = sexCategory,
                 Category = category,
                 CategoryId = productDto.CategoryId,
-                Color = productDto.Color,
-                Count = productDto.Count,
-                Smell = productDto.Smell,
-                ImageLink = productDto.ImageLink,
-                UseMethod = productDto.UseMethod,
-                Weight = productDto.Weight,
+                //Color = productDto.Color,
+                //Count = productDto.Count,
+                //Smell = productDto.Smell,
+                //ImageLink = productDto.ImageLink,
+                //UseMethod = productDto.UseMethod,
+                //Weight = productDto.Weight,
             };
             productRepository.Update(product);
 

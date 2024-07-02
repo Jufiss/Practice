@@ -36,14 +36,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IFirmRepository, FirmRepository>();
+builder.Services.AddScoped<ISexCategoryRepository, SexCategoryRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.Services.AddScoped<IFirmService, FirmBLL>();
+builder.Services.AddScoped<ISexCategoryService, SexCategoryBLL>();
 builder.Services.AddScoped<ICategoryService, CategoryBLL>();
 builder.Services.AddScoped<IProductService, ProductBLL>();
 builder.Services.AddScoped<IOrderService, OrderBLL>();
@@ -60,7 +60,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.Cookie.Name = "CosmeticShopApp";
+    options.Cookie.Name = "ShopApp";
     options.LoginPath = "/";
     options.AccessDeniedPath = "/";
     options.LogoutPath = "/";

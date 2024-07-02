@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CosmeticShop.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20240421141529_addOrderCart")]
-    partial class addOrderCart
+    [Migration("20240702153658_db3")]
+    partial class db3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,15 +24,12 @@ namespace CosmeticShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CosmeticShop.Models.Cart", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Cart", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<decimal>("Sum")
+                    b.Property<decimal?>("Sum")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
@@ -46,7 +43,7 @@ namespace CosmeticShop.Migrations
                     b.ToTable("Cart");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.CartProducts", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.CartProducts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,8 +51,9 @@ namespace CosmeticShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
+                    b.Property<string>("CartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
@@ -72,13 +70,16 @@ namespace CosmeticShop.Migrations
                     b.ToTable("CartProducts");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Category", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImageLink")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -89,7 +90,7 @@ namespace CosmeticShop.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Firm", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Color", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,10 +104,10 @@ namespace CosmeticShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Firm");
+                    b.ToTable("Color");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Order", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,16 +115,34 @@ namespace CosmeticShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long>("Number")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImageLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("OrderStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Sum")
@@ -142,7 +161,7 @@ namespace CosmeticShop.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.OrderProducts", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.OrderProducts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +187,7 @@ namespace CosmeticShop.Migrations
                     b.ToTable("OrderProducts");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.OrderStatus", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.OrderStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +204,7 @@ namespace CosmeticShop.Migrations
                     b.ToTable("OrderStatus");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Product", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,20 +215,11 @@ namespace CosmeticShop.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Composition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
+                    b.Property<int>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FirmId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -218,25 +228,81 @@ namespace CosmeticShop.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Smell")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UseMethod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Weight")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("SexCategoryId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("FirmId");
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("SexCategoryId");
 
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.User", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("ProductSize");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.SexCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SexCategory");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Size");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -434,9 +500,9 @@ namespace CosmeticShop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Cart", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Cart", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.User", "User")
+                    b.HasOne("CosmeticShop.DAL.Models.User", "User")
                         .WithMany("Cart")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -445,15 +511,15 @@ namespace CosmeticShop.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.CartProducts", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.CartProducts", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.Cart", "Cart")
+                    b.HasOne("CosmeticShop.DAL.Models.Cart", "Cart")
                         .WithMany("CartProducts")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticShop.Models.Product", "Product")
+                    b.HasOne("CosmeticShop.DAL.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -464,15 +530,26 @@ namespace CosmeticShop.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Order", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Image", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.OrderStatus", "OrderStatus")
+                    b.HasOne("CosmeticShop.DAL.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Order", b =>
+                {
+                    b.HasOne("CosmeticShop.DAL.Models.OrderStatus", "OrderStatus")
                         .WithMany("Order")
                         .HasForeignKey("OrderStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticShop.Models.User", "User")
+                    b.HasOne("CosmeticShop.DAL.Models.User", "User")
                         .WithMany("Order")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -483,15 +560,15 @@ namespace CosmeticShop.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.OrderProducts", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.OrderProducts", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.Order", "Order")
+                    b.HasOne("CosmeticShop.DAL.Models.Order", "Order")
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticShop.Models.Product", "Product")
+                    b.HasOne("CosmeticShop.DAL.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -502,23 +579,46 @@ namespace CosmeticShop.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Product", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Product", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.Category", "Category")
+                    b.HasOne("CosmeticShop.DAL.Models.Category", "Category")
                         .WithMany("Product")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticShop.Models.Firm", "Firm")
+                    b.HasOne("CosmeticShop.DAL.Models.Color", "Color")
                         .WithMany("Product")
-                        .HasForeignKey("FirmId")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CosmeticShop.DAL.Models.SexCategory", "SexCategory")
+                        .WithMany("Product")
+                        .HasForeignKey("SexCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Firm");
+                    b.Navigation("Color");
+
+                    b.Navigation("SexCategory");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.ProductSize", b =>
+                {
+                    b.HasOne("CosmeticShop.DAL.Models.Product", null)
+                        .WithMany("ProductSize")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CosmeticShop.DAL.Models.Size", null)
+                        .WithMany("ProductSize")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -532,7 +632,7 @@ namespace CosmeticShop.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.User", null)
+                    b.HasOne("CosmeticShop.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -541,7 +641,7 @@ namespace CosmeticShop.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.User", null)
+                    b.HasOne("CosmeticShop.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -556,7 +656,7 @@ namespace CosmeticShop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CosmeticShop.Models.User", null)
+                    b.HasOne("CosmeticShop.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -565,39 +665,56 @@ namespace CosmeticShop.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CosmeticShop.Models.User", null)
+                    b.HasOne("CosmeticShop.DAL.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Cart", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Cart", b =>
                 {
                     b.Navigation("CartProducts");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Category", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Category", b =>
                 {
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Firm", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Color", b =>
                 {
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.Order", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Order", b =>
                 {
                     b.Navigation("OrderProducts");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.OrderStatus", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.OrderStatus", b =>
                 {
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("CosmeticShop.Models.User", b =>
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Product", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("ProductSize");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.SexCategory", b =>
+                {
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.Size", b =>
+                {
+                    b.Navigation("ProductSize");
+                });
+
+            modelBuilder.Entity("CosmeticShop.DAL.Models.User", b =>
                 {
                     b.Navigation("Cart");
 

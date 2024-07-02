@@ -1,8 +1,8 @@
 ﻿namespace CosmeticShop.DAL.Models
 {
-    public class Firm
+    public class Color
     {
-        public Firm()
+        public Color()
         {
             Product = new HashSet<Product>();
         }

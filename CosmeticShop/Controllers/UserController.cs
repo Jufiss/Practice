@@ -78,7 +78,7 @@ namespace CosmeticShop.Controllers
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
 
-        public async Task<IActionResult> DeleteFirm(string id)
+        public async Task<IActionResult> DeleteSexCategory(string id)
         {
             userService.Delete(id);
             return NoContent();

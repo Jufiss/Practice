@@ -13,7 +13,7 @@ namespace CosmeticShop.ModelsDTO
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
         public int Count { get; set; }
-        public int FirmId { get; set; }
+        public int SexCategoryId { get; set; }
         public string? Color { get; set; }
         public string? Smell { get; set; }
     }
