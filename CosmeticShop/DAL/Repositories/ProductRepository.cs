@@ -12,11 +12,11 @@ namespace CosmeticShop.DAL.Repositories
 
         public IEnumerable<Product> GetProducts()
         {
-            return db.Product.Include(p => p.Category).Include(p => p.SexCategory).ToList();
+            return db.Product.Include(p => p.Category).Include(p => p.Firm).ToList();
         }
         public Product? GetProductById(int id)
         {
-            var product = db.Product.Include(p => p.Category).Include(p => p.SexCategory).FirstOrDefault(p => p.Id == id);
+            var product = db.Product.Include(p => p.Category).Include(p => p.Firm).FirstOrDefault(p => p.Id == id);
             return product;
         }
         public void Delete(int id)

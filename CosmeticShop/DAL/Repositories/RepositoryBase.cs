@@ -9,5 +9,12 @@ namespace CosmeticShop.DAL.Repositories
         {
             db = context;
         }
+
+
+        //public ShopContext db;
+        //public RepositoryBase()
+        //{
+        //    db = new ShopContext();
+        //}
     }
 }

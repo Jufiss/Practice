@@ -29,13 +29,10 @@ namespace CosmeticShop.DAL.Models
         public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<CartProducts> CartProducts { get; set; }
         public virtual DbSet<User> User { get; set; }
+        //public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Size> Size { get; set; }
-        public virtual DbSet<Color> Color { get; set; }
-        public virtual DbSet<SexCategory> SexCategory { get; set; }
-        public virtual DbSet<Image> Image { get; set; }
+        public virtual DbSet<Firm> Firm { get; set; }
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
-        public virtual DbSet<ProductSize> ProductSize { get; set; }
 
     }
 }
